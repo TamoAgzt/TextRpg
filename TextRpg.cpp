@@ -1,9 +1,6 @@
 // TextRpg.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
-
-#include <iostream>
-
-using namespace std;
+#include "Header.h"
 
 
 /*struct {
@@ -13,151 +10,18 @@ using namespace std;
 } Stats;
 */
 
-struct {
-    string Races[3] = { "Human", "Elf", "Ork" };
-    // The base points should all add up to 27 for each race
-    // Human attack 9 health 9 stamina 9
-    // Elf attack 7 health 10 stamina 10
-    // Ork attack 11 health 10 stamina 6
-} Race;
-
-/*
-class C_Race {
-public:
-    string Races[3] = {"Human", "Elf", "Ork"};
-    // The base points should all add up to 27 for each race
-    // Human attack 9 health 9 stamina 9
-    // Elf attack 7 health 10 stamina 10
-    // Ork attack 11 health 10 stamina 6
-};
-
-class C_Player: public C_Race {
-*/
-
-class C_Character {
-private:
-    string CharacterName;
-    string CharacterRace;
-    bool isHostile;
-
-    int AttackPoints;
-    int HealthPoints;
-    int StaminaPoints;
-
-public:
-    void setCharacterName(string characterName) {
-        CharacterName = characterName;
-    }
-    string getCharacterName() {
-        return CharacterName;
-    }
-
-    void setCharacterRace(int chosenRace) {
-        CharacterRace = Race.Races[chosenRace];
-        switch (chosenRace) {
-        case 0:
-            AttackPoints = 9;
-            HealthPoints = 9;
-            StaminaPoints = 9;
-            break;
-        case 1:
-            AttackPoints = 7;
-            HealthPoints = 10;
-            StaminaPoints = 10;
-            break;
-        case 2:
-            AttackPoints = 11;
-            HealthPoints = 10;
-            StaminaPoints = 6;
-            break;
-        }
-    }
-    string getCharacterRace() {
-        return CharacterRace;
-    }
-
-    void setHostility(bool hostility) {
-        isHostile = hostility;
-    }
-    bool getHostility() {
-        return isHostile;
-    }
-};
-
-class C_Player {
-private:
-    string CharacterName;
-    string PlayerRace;
-    int PlayerLevel;
-
-    int AttackPoints;
-    int HealthPoints;
-    int StaminaPoints;
-
-public:
-    void setCharacterName(string characterName) {
-        CharacterName = characterName;
-    }
-    string getCharacterName() {
-        return CharacterName;
-    }
-
-    void setPlayerRace(int chosenRace) {
-        PlayerRace = Race.Races[chosenRace];
-        switch (chosenRace) {
-        case 0:
-            AttackPoints = 9;
-            HealthPoints = 9;
-            StaminaPoints = 9;
-            break;
-        case 1:
-            AttackPoints = 7;
-            HealthPoints = 10;
-            StaminaPoints = 10;
-            break;
-        case 2:
-            AttackPoints = 11;
-            HealthPoints = 10;
-            StaminaPoints = 6;
-            break;
-        }
-    }
-    string getPlayerRace() {
-        return PlayerRace;
-    }
-
-#pragma region MyRegion
 
 
-    void setLevelUp() {
-        PlayerLevel++;
-    }
-    int getLevel() {
-        return PlayerLevel;
-    }
-
-    void setAttackUp() {
-        AttackPoints;
-    }
-    int getAttackPoints() {
-        return AttackPoints;
-    }
-
-    void setHealthUp() {
-        HealthPoints;
-    }
-    int getHealthPoints() {
-        return HealthPoints;
-    }
-
-    void setStaminaUp() {
-        StaminaPoints++;
-    }
-    int getStaminaPoints() {
-        return StaminaPoints;
-    }
+#pragma region Declare functions
+void ActionOptions();
+void CharacterSheet();
+void BattleSequence();
+void DialogueSequence();   
+void Rest();
 #pragma endregion
-};
+
+// Globally declare player object from header.
+C_Player ObjPlayer;
 
 int main() {
 #pragma region NPC Declaration
@@ -187,58 +51,44 @@ int main() {
     ObjNPC_Bandit03.setHostility(true);
 #pragma endregion
 
-#pragma region SelectName
+#pragma region Intro
 
-    string x;
-    cout << "What is your name, traveler? \n";
-    cin >> x;
-    C_Player ObjPlayer;
-    ObjPlayer.setCharacterName(x);
+    std::cout << "Guard) Halt, stranger. Before entering Blue Watertown, I need you to fill out a form.\nJust state your name and race and you are good to go.\n";
 
-    /*
-    string agreement;
-    cout << "Are you sure? (y/n)\n";
-    cin >> agreement;
-    if (agreement == "y") {
-        C_Player ObjPlayer;
-        ObjPlayer.setCharacterName(x);
-    }
-    else if(agreement == "n")
+    std::string inputName;
+    std::cout << "State your name, traveler: ";
+    std::cin >> inputName;
+
+    ObjPlayer.setCharacterName(inputName);
+
+    int raceIndex = 0;
+    for (std::string raceName : Race.Races)
     {
-
-    }
-    else {
-        cout << "oh no";
-    }
-    */
-
-#pragma endregion
-
-#pragma region SelectRace
-
-    int i = 0;
-    for (string raceName : Race.Races)
-    {
-        cout << "[" << i << "] " << raceName << "\n";
-        i++;
+        std::cout << "[" << raceIndex << "] " << raceName << "\n";
+        raceIndex++;
     }
 
     int raceChoice;
-    cout << "What is your name, traveler? \n";
-    cin >> raceChoice;
+    std::cout << "Your race: ";
+    std::cin >> raceChoice;
 
-    // Add a check to see if the choice is available, else repeat
+    // Check if choice is available, else repeat
+    while (raceChoice > raceIndex - 1 || raceChoice < 0) {
+        std::cout << "Your race: ";
+        std::cin >> raceChoice;
+    }
 
-    ObjPlayer.setPlayerRace(raceChoice);
+    ObjPlayer.setCharacterRace(raceChoice);
+    //int maxHp = ObjPlayer.getHealthPoints();
+    //ObjPlayer.getCurrentHealthPoints(maxHp);
 
+    std::cout << "Guard) Alright, " << ObjPlayer.getCharacterName() << " the " << ObjPlayer.getCharacterRace() << ". You may enter Blue Watertown.\n";
+    ObjPlayer.setCurrentHealthPoints(ObjPlayer.getHealthPoints());
+    ObjPlayer.setCurrentStaminaPoints(ObjPlayer.getStaminaPoints());
 
 #pragma endregion
 
-    cout << "Pleasure to meet you, " << ObjPlayer.getCharacterName() << " the " << ObjPlayer.getPlayerRace() << "!\n";
-
-    string action, target;
-    cin >> action >> target;
-    cout << action << " " << target;
+    ActionOptions();
 
     return 0;
 }
@@ -249,4 +99,91 @@ int main() {
 // Dialogue loops should look similar: prompt, response/choice, repeat
 // Response structure should be like the race picking at the start.
 
-// Implement "dice rolls" where 1 = big negative multiplier; 2,3,4,5,6,7 is small negative multiplier; 8,9,10,11,12 is neutral; 13,14,15,16,17,18,19 is a small positive multiplier; 20 is a big positive multiplier,
+
+// In a "scene", there should be an option to interact with every NPC present. These can be: speak, attack, leave. Every NPC you can speak to has a "good bye" option. You can attack any NPC, but some may receive help from nearby NPCs.
+// If an NPC is marked as hostile, speaking is not an option. If a character is marked as merchant, if you speak to them, you can barter.
+struct {
+    // move to interest
+    // speak with npc
+    // attack npc
+    // look around
+    // Rest (near chairs and beds)
+
+    // When you enter a scene, you may get to see some interests and NPCs. By looking around and getting lucky, You may find more of these, giving you more options.
+
+} Actions;
+
+
+void CharacterSheet() {
+    std::cout << "\n\n\n\n";
+    if (ObjPlayer.getUpgradePoints() != 0) {
+        std::cout << "You have " << ObjPlayer.getUpgradePoints() << " upgrade point(s) to spend.\n";
+    }
+
+    std::cout << ObjPlayer.getCharacterName() << " the " << ObjPlayer.getCharacterRace() << "\n==================================================================================\n" << "Health: " << ObjPlayer.getCurrentHealthPoints() << "/" << ObjPlayer.getHealthPoints() << "\n" << "Attack points: " << ObjPlayer.getAttackPoints() << "\n" << "Stamina: " << ObjPlayer.getCurrentStaminaPoints() << "/" << ObjPlayer.getStaminaPoints() << "\n\n";
+    std::string upgradeChoice;
+
+    if (ObjPlayer.getUpgradePoints() != 0) {
+        std::cout << "Select an attribute to use 1 upgrade pointon.\n[Health], [Attack], [Stamina]\n";
+        std::cin >> upgradeChoice;
+        if (upgradeChoice == "health") {
+            ObjPlayer.setUpgradeHealth();
+            std::cout << "\n\n\n\n";
+            CharacterSheet();
+        } else if (upgradeChoice == "attack") {
+            ObjPlayer.setUpgradeAttack();
+            std::cout << "\n\n\n\n";
+            CharacterSheet();
+        } else if (upgradeChoice == "stamina") {
+            ObjPlayer.setUpgradeStamina();
+            std::cout << "\n\n\n\n";
+            CharacterSheet();
+        }
+    }
+    ActionOptions();
+}
+
+void Rest() {
+    std::cout << "\n\n\n\n";
+    ObjPlayer.setCurrentHealthPoints(ObjPlayer.getHealthPoints());
+    ObjPlayer.setCurrentStaminaPoints(ObjPlayer.getStaminaPoints());
+    std::cout << "You feel healthy and energetic!";
+    ActionOptions();
+}
+
+void BattleSequence() {
+// Attacks and heals get a "dice roll", an rng from 1 to 20, 1-3 action failed, 4-7 effect is reduced by 20 to 30%, 8-14 base effect, 15 to 19 effect is enhanced by 20 to 30$, 20 effect is doubled.
+// Or implement "dice rolls" where 1-3 = big negative multiplier, but not 0
+
+}
+
+void DialogueSequence() {}
+
+void ActionOptions() {
+    std::cout << "\n\n\n\n";
+    for (size_t i = 0; i < 100; i++) {
+        if (ObjPlayer.getUpgradePoints() != 0) {
+            std::cout << "You can level up, open your character sheet to assign your upgrade point(s)!\n[CHR]\n";
+        }
+        std::string commandInput;
+        std::cout << "[CHR], [REST], ";
+        std::cin >> commandInput;
+        std::cout << commandInput;
+
+        if (commandInput == "f") {
+            ObjPlayer.setLevelUp();
+            std::cout << "\n\n\n\n";
+        }
+        else if (commandInput == "chr") {
+            CharacterSheet();
+            std::cout << "\n\n\n\n";
+            break;
+        }
+        else if (commandInput == "rest") {
+            Rest();
+            std::cout << "\n\n\n\n";
+            break;
+        }
+
+    }
+}
