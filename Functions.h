@@ -77,8 +77,13 @@ void ActionOptions() {
         // Input action command
         std::cin >> commandInput;
 
+        // Convert all characters to uppercase 
+        for (char& characters : commandInput) {
+            characters = std::toupper(characters);
+        }
+
         // THIS IS A TESTING COMMAND - Check if input was f, then level up. 
-        if (commandInput == "f") {
+        if (commandInput == "F") {
             // Perform related action
             ObjPlayer.setLevelUp();
             // Insert four line breaks
@@ -102,15 +107,23 @@ void ActionOptions() {
         }
         // Check for upgrade action (always set it to last in the array)
         else if (commandInput == Actions[2] && ObjPlayer.getUpgradePoints() > 0) {
+            // Array of all attributes
+            std::string Attributes[3] = { "HEALTH", "ATTACK", "STAMINA" };
             // String for later input, upgrade choice
             std::string upgradeChoice;
+
             // Output every option
-            std::cout << "Select an attribute to use 1 upgrade point on:\n[Health], [Attack], [Stamina]\n";
+            std::cout << "Select an attribute to use 1 upgrade point on:\n[" << Attributes[0] << "], [" << Attributes[1] << "], [" << Attributes[2] << "]\n";
             // Input action command
             std::cin >> upgradeChoice;
 
+            // Convert all characters to uppercase 
+            for (char& characters : upgradeChoice) {
+                characters = std::toupper(characters);
+            }
+
             // Check for choice health
-            if (upgradeChoice == "health") {
+            if (upgradeChoice == Attributes[0]) {
                 // Perform upgrade health method
                 ObjPlayer.setUpgradeHealth();
                 // Insert four line breaks
@@ -119,7 +132,7 @@ void ActionOptions() {
                 CharacterSheet();
             }
             // Check for choice attack
-            else if (upgradeChoice == "attack") {
+            else if (upgradeChoice == Attributes[1]) {
                 // Perform upgrade attack method
                 ObjPlayer.setUpgradeAttack();
                 // Insert four line breaks
@@ -128,7 +141,7 @@ void ActionOptions() {
                 CharacterSheet();
             }
             // Check for choice stamina
-            else if (upgradeChoice == "stamina") {
+            else if (upgradeChoice == Attributes[2]) {
                 // Perform upgrade stamina method
                 ObjPlayer.setUpgradeStamina();
                 // Insert four line breaks

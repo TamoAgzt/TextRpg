@@ -46,6 +46,11 @@ int main() {
     // Player name input
     std::cin >> inputName;
 
+    // Convert all characters to uppercase 
+    for (char& characters : inputName) {
+        characters = std::toupper(characters);
+    }
+
     // Set the player object character's name: inputName
     ObjPlayer.setCharacterName(inputName);
 

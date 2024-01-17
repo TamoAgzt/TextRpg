@@ -126,9 +126,8 @@ public:
         setUseUpgradePoints();
     }
 
-    int setUseUpgradePoints() {
+    void setUseUpgradePoints() {
         UpgradePoints--;
-        return UpgradePoints;
     }
     int getUpgradePoints() {
         return UpgradePoints;
