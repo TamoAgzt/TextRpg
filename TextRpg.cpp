@@ -1,14 +1,6 @@
 // TextRpg.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-#include "Header.h"
 
-
-/*struct {
-    int AttackPoints;
-    int HealthPoints;
-    int StaminaPoints;
-} Stats;
-*/
+#include "Character.h"
 
 
 
@@ -30,7 +22,7 @@ int main() {
     ObjNPC_TavernKeeper.setCharacterRace(0);
     ObjNPC_TavernKeeper.setHostility(false);
 
-    ObjNPC_Borka.setCharacterName("Borka");
+    ObjNPC_Borka.setCharacterName("Worm Borka");
     ObjNPC_Borka.setCharacterRace(0);
     ObjNPC_Borka.setHostility(false);
 
@@ -52,7 +44,6 @@ int main() {
 #pragma endregion
 
 #pragma region Intro
-
     std::cout << "Guard) Halt, stranger. Before entering Blue Watertown, I need you to fill out a form.\nJust state your name and race and you are good to go.\n";
 
     std::string inputName;
@@ -93,34 +84,13 @@ int main() {
     return 0;
 }
 
-// Gameplay loop: prompt - options - choice - repeat
-// Options will be like custom commands and should look like: ACTION TARGET
-// Example: Interact TavernKeeper, Attack Bandit1
-// Dialogue loops should look similar: prompt, response/choice, repeat
-// Response structure should be like the race picking at the start.
-
-
-// In a "scene", there should be an option to interact with every NPC present. These can be: speak, attack, leave. Every NPC you can speak to has a "good bye" option. You can attack any NPC, but some may receive help from nearby NPCs.
-// If an NPC is marked as hostile, speaking is not an option. If a character is marked as merchant, if you speak to them, you can barter.
-struct {
-    // move to interest
-    // speak with npc
-    // attack npc
-    // look around
-    // Rest (near chairs and beds)
-
-    // When you enter a scene, you may get to see some interests and NPCs. By looking around and getting lucky, You may find more of these, giving you more options.
-
-} Actions;
-
-
 void CharacterSheet() {
-    std::cout << "\n\n\n\n";
+    std::cout << FOURLINE;
     if (ObjPlayer.getUpgradePoints() != 0) {
         std::cout << "You have " << ObjPlayer.getUpgradePoints() << " upgrade point(s) to spend.\n";
     }
 
-    std::cout << ObjPlayer.getCharacterName() << " the " << ObjPlayer.getCharacterRace() << "\n==================================================================================\n" << "Health: " << ObjPlayer.getCurrentHealthPoints() << "/" << ObjPlayer.getHealthPoints() << "\n" << "Attack points: " << ObjPlayer.getAttackPoints() << "\n" << "Stamina: " << ObjPlayer.getCurrentStaminaPoints() << "/" << ObjPlayer.getStaminaPoints() << "\n\n";
+    std::cout << ObjPlayer.getCharacterName() << " the " << ObjPlayer.getCharacterRace() << TWOLINE << "Health: " << ObjPlayer.getCurrentHealthPoints() << "/" << ObjPlayer.getHealthPoints() << "\n" << "Attack points: " << ObjPlayer.getAttackPoints() << "\n" << "Stamina: " << ObjPlayer.getCurrentStaminaPoints() << "/" << ObjPlayer.getStaminaPoints() << TWOLINE;
     std::string upgradeChoice;
 
     if (ObjPlayer.getUpgradePoints() != 0) {
@@ -128,15 +98,15 @@ void CharacterSheet() {
         std::cin >> upgradeChoice;
         if (upgradeChoice == "health") {
             ObjPlayer.setUpgradeHealth();
-            std::cout << "\n\n\n\n";
+            std::cout << FOURLINE;
             CharacterSheet();
         } else if (upgradeChoice == "attack") {
             ObjPlayer.setUpgradeAttack();
-            std::cout << "\n\n\n\n";
+            std::cout << FOURLINE;
             CharacterSheet();
         } else if (upgradeChoice == "stamina") {
             ObjPlayer.setUpgradeStamina();
-            std::cout << "\n\n\n\n";
+            std::cout << FOURLINE;
             CharacterSheet();
         }
     }
@@ -144,7 +114,7 @@ void CharacterSheet() {
 }
 
 void Rest() {
-    std::cout << "\n\n\n\n";
+    std::cout << FOURLINE;
     ObjPlayer.setCurrentHealthPoints(ObjPlayer.getHealthPoints());
     ObjPlayer.setCurrentStaminaPoints(ObjPlayer.getStaminaPoints());
     std::cout << "You feel healthy and energetic!";
@@ -160,8 +130,9 @@ void BattleSequence() {
 void DialogueSequence() {}
 
 void ActionOptions() {
-    std::cout << "\n\n\n\n";
-    for (size_t i = 0; i < 100; i++) {
+    std::cout << FOURLINE;
+
+    for (int i = 0; i < 100000000; i++) {
         if (ObjPlayer.getUpgradePoints() != 0) {
             std::cout << "You can level up, open your character sheet to assign your upgrade point(s)!\n[CHR]\n";
         }
@@ -172,16 +143,16 @@ void ActionOptions() {
 
         if (commandInput == "f") {
             ObjPlayer.setLevelUp();
-            std::cout << "\n\n\n\n";
+            std::cout << FOURLINE;
         }
         else if (commandInput == "chr") {
             CharacterSheet();
-            std::cout << "\n\n\n\n";
+            std::cout << FOURLINE;
             break;
         }
         else if (commandInput == "rest") {
             Rest();
-            std::cout << "\n\n\n\n";
+            std::cout << FOURLINE;
             break;
         }
 
