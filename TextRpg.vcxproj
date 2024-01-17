@@ -143,6 +143,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character.h" />
+    <ClInclude Include="Functions.h" />
     <ClInclude Include="Header.h" />
   </ItemGroup>
   <ItemGroup>
