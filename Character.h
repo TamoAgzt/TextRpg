@@ -3,12 +3,6 @@
 
 struct {
     std::string Races[5] = { "Human", "Elf", "Ork", "Goblin", "Foxling" };
-    // The base points should all add up to 27 for each race
-    // Human attack 9 health 9 stamina 9
-    // Elf attack 7 health 10 stamina 10
-    // Ork attack 12 health 9 stamina 6
-    // Goblin attack 6 health 8 stamina 13
-    // Goblin attack 10 health 10 stamina 7
 } Race;
 
 class C_Character {
