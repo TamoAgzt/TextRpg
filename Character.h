@@ -7,7 +7,7 @@ struct {
 
 class C_Character {
 protected:
-    int AttackPoints = 0, HealthPoints = 0, StaminaPoints = 0, CurrentHealthPoints = 0, CurrentStaminaPoints = 0;
+    int AttackPoints = 0, HealthAttributePoints = 0, StaminaPoints = 0, HealthPoints = 0, CurrentHealthPoints = 0, CurrentStaminaPoints = 0;
 
 private:
     std::string CharacterName = "", CharacterRace = "";
@@ -26,27 +26,27 @@ public:
         switch (chosenRace) {
         case 0:
             AttackPoints = 9;
-            HealthPoints = 9;
+            HealthAttributePoints = 9;
             StaminaPoints = 9;
             break;
         case 1:
             AttackPoints = 7;
-            HealthPoints = 10;
+            HealthAttributePoints = 10;
             StaminaPoints = 10;
             break;
         case 2:
             AttackPoints = 12;
-            HealthPoints = 9;
+            HealthAttributePoints = 9;
             StaminaPoints = 6;
             break;
         case 3:
             AttackPoints = 6;
-            HealthPoints = 8;
+            HealthAttributePoints = 8;
             StaminaPoints = 13;
             break;
         case 4:
             AttackPoints = 10;
-            HealthPoints = 10;
+            HealthAttributePoints = 10;
             StaminaPoints = 7;
             break;
         }
@@ -55,40 +55,52 @@ public:
         return CharacterRace;
     }
 
-    void setReduceAttack(int reductionPoints) {
+    int setReduceAttack(int reductionPoints) {
         AttackPoints -= reductionPoints;
+        return AttackPoints;
     }
     int getAttackPoints() {
         return AttackPoints;
     }
 
-    void setReduceHealth(int damagePoints) {
-        HealthPoints -= damagePoints;
+    int setReduceCurrentHealth(int reduction) {
+        CurrentHealthPoints -= reduction;
+        return CurrentHealthPoints;
+    }
+
+    int setHealthPoints() {
+        HealthPoints = getHealthAttributePoints() * 2;
+        return HealthPoints;
     }
 
     int getHealthPoints() {
         return HealthPoints;
     }
-
-    void setReduceStamina(int reductionPoints) {
-        StaminaPoints -= reductionPoints;
-    }
-    int getStaminaPoints() {
-        return StaminaPoints;
+    int getHealthAttributePoints() {
+        return HealthAttributePoints;
     }
 
-    void setCurrentHealthPoints(int healthPoints) {
+    int setCurrentHealthPoints(int healthPoints) {
         CurrentHealthPoints = healthPoints;
+        return CurrentHealthPoints;
     }
     int getCurrentHealthPoints() {
         return CurrentHealthPoints;
     }
 
-    void setCurrentStaminaPoints(int staminaPoints) {
+    int setReduceCurrentStamina(int reduction) {
+        CurrentStaminaPoints -= reduction;
+        return CurrentStaminaPoints;
+    }
+    int setCurrentStaminaPoints(int staminaPoints) {
         CurrentStaminaPoints = staminaPoints;
+        return CurrentStaminaPoints;
     }
     int getCurrentStaminaPoints() {
         return CurrentStaminaPoints;
+    }
+    int getStaminaPoints() {
+        return StaminaPoints;
     }
 
     void setHostility(bool hostility) {
@@ -118,8 +130,9 @@ public:
         setUseUpgradePoints();
     }
     void setUpgradeHealth() {
-        HealthPoints++;
+        HealthAttributePoints++;
         setUseUpgradePoints();
+        setHealthPoints();
     }
     void setUpgradeStamina() {
         StaminaPoints++;
