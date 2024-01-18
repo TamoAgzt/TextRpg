@@ -9,6 +9,7 @@ C_Character ObjNPC_TavernKeeper, ObjNPC_Borka, ObjNPC_Bookman, ObjNPC_Bandit01, 
 #pragma region Declare functions
 // Declare functions to use later
 void NPCDeclaration();
+void NPCInitialization(C_Character& objName, std::string npcName, int race, bool hostility);
 void ActionOptions();
 void CharacterSheet();
 void BattleSequence();
@@ -20,63 +21,23 @@ void Rest();
 #pragma endregion
 
 void NPCDeclaration() {
-#pragma region NPC Declaration
-    // Declare NPCs and assign values
-    // !!! Move to separate header !!!
-    ObjNPC_TavernKeeper.setCharacterName("Tavern Keeper");
-    ObjNPC_TavernKeeper.setCharacterRace(0);
-    ObjNPC_TavernKeeper.setHealthPoints();
-    ObjNPC_TavernKeeper.setHostility(false);
-    // Set NPC's current health to the maximum amount
-    ObjNPC_TavernKeeper.setCurrentHealthPoints(ObjNPC_TavernKeeper.getHealthPoints());
-    // Set NPC's current stamina to the maximum amount
-    ObjNPC_TavernKeeper.setCurrentStaminaPoints(ObjNPC_TavernKeeper.getStaminaPoints());
+    NPCInitialization(ObjNPC_TavernKeeper, "Tavern Keeper", 0, false);
+    NPCInitialization(ObjNPC_Borka, "Worm Borka", 0, false);
+    NPCInitialization(ObjNPC_Bookman, "Old Bookman", 0, false);
+    NPCInitialization(ObjNPC_Bandit01, "Bandit 1", 0, true);
+    NPCInitialization(ObjNPC_Bandit02, "Bandit 2", 0, true);
+    NPCInitialization(ObjNPC_Bandit03, "Bandit 3", 1, true);
+}
 
-    ObjNPC_Borka.setCharacterName("Worm Borka");
-    ObjNPC_Borka.setCharacterRace(0);
-    ObjNPC_Borka.setHealthPoints();
-    ObjNPC_Borka.setHostility(false);
+void NPCInitialization(C_Character& objName, std::string npcName, int race, bool hostility) {
+    objName.setCharacterName(npcName);
+    objName.setCharacterRace(race);
+    objName.setHealthPoints();
+    objName.setHostility(hostility);
     // Set NPC's current health to the maximum amount
-    ObjNPC_Borka.setCurrentHealthPoints(ObjNPC_Borka.getHealthPoints());
+    objName.setCurrentHealthPoints(objName.getHealthPoints());
     // Set NPC's current stamina to the maximum amount
-    ObjNPC_Borka.setCurrentStaminaPoints(ObjNPC_Borka.getStaminaPoints());
-
-    ObjNPC_Bookman.setCharacterName("Old Bookman");
-    ObjNPC_Bookman.setCharacterRace(1);
-    ObjNPC_Bookman.setHealthPoints();
-    ObjNPC_Bookman.setHostility(false);
-    // Set NPC's current health to the maximum amount
-    ObjNPC_Bookman.setCurrentHealthPoints(ObjNPC_Bookman.getHealthPoints());
-    // Set NPC's current stamina to the maximum amount
-    ObjNPC_Bookman.setCurrentStaminaPoints(ObjNPC_Bookman.getStaminaPoints());
-
-    ObjNPC_Bandit01.setCharacterName("Bandit 1");
-    ObjNPC_Bandit01.setCharacterRace(0);
-    ObjNPC_Bandit01.setHealthPoints();
-    ObjNPC_Bandit01.setHostility(true);
-    // Set NPC's current health to the maximum amount
-    ObjNPC_Bandit01.setCurrentHealthPoints(ObjNPC_Bandit01.getHealthPoints());
-    // Set NPC's current stamina to the maximum amount
-    ObjNPC_Bandit01.setCurrentStaminaPoints(ObjNPC_Bandit01.getStaminaPoints());
-
-    ObjNPC_Bandit02.setCharacterName("Bandit 2");
-    ObjNPC_Bandit02.setCharacterRace(0);
-    ObjNPC_Bandit02.setHealthPoints();
-    ObjNPC_Bandit02.setHostility(true);
-    // Set NPC's current health to the maximum amount
-    ObjNPC_Bandit02.setCurrentHealthPoints(ObjNPC_Bandit02.getHealthPoints());
-    // Set NPC's current stamina to the maximum amount
-    ObjNPC_Bandit02.setCurrentStaminaPoints(ObjNPC_Bandit02.getStaminaPoints());
-
-    ObjNPC_Bandit03.setCharacterName("Bandit 3");
-    ObjNPC_Bandit03.setCharacterRace(1);
-    ObjNPC_Bandit03.setHealthPoints();
-    ObjNPC_Bandit03.setHostility(true);
-    // Set NPC's current health to the maximum amount
-    ObjNPC_Bandit03.setCurrentHealthPoints(ObjNPC_Bandit03.getHealthPoints());
-    // Set NPC's current stamina to the maximum amount
-    ObjNPC_Bandit03.setCurrentStaminaPoints(ObjNPC_Bandit03.getStaminaPoints());
-#pragma endregion
+    objName.setCurrentStaminaPoints(objName.getStaminaPoints());
 }
 
 // See "Character Sheet" in Gameplay.md
