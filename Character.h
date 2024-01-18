@@ -21,7 +21,7 @@ public:
         return CharacterName;
     }
 
-    void setCharacterRace(int chosenRace) {
+    int setCharacterRace(int chosenRace) {
         CharacterRace = Race.Races[chosenRace];
         switch (chosenRace) {
         case 0:
@@ -50,6 +50,9 @@ public:
             StaminaPoints = 7;
             break;
         }
+        return AttackPoints;
+        return HealthAttributePoints;
+        return StaminaPoints;
     }
     std::string getCharacterRace() {
         return CharacterRace;

@@ -6,7 +6,7 @@ int main() {
 #pragma region Intro
     // Game start
     // Guard message 1
-    std::cout << "Guard) Halt, stranger. Before entering Blue Watertown, I need you to fill out a form.\nJust state your name and race and you are good to go.\n";
+    std::cout << "Guard) Halt, stranger. Before entering Blue Watertown, I need you to fill out a form." << std::endl << "Just state your name and race and you are good to go." << std::endl;
     // Pause, press any key to continue
     system("pause");
 
@@ -31,7 +31,7 @@ int main() {
     for (std::string raceName : Race.Races)
     {
         // Output race index and name, player can later choose one of these races to play as
-        std::cout << "[" << RaceIndex << "] " << raceName << "\n";
+        std::cout << "[" << RaceIndex << "] " << raceName << std::endl;
         // Add 1 to the race index until we reach the last option
         RaceIndex++;
     }
@@ -55,7 +55,7 @@ int main() {
     ObjPlayer.setCharacterRace(RaceChoice);
 
     // Acknowledgement of player's info
-    std::cout << "Guard) Alright, " << ObjPlayer.getCharacterName() << " the " << ObjPlayer.getCharacterRace() << ". You may enter Blue Watertown.\n May luck guide you, bravery lead you.";
+    std::cout << "Guard) Alright, " << ObjPlayer.getCharacterName() << " the " << ObjPlayer.getCharacterRace() << ". You may enter Blue Watertown." << std::endl << "May luck guide you, bravery lead you.";
     ObjPlayer.setHealthPoints();
     // Set player's current health to the maximum amount
     ObjPlayer.setCurrentHealthPoints(ObjPlayer.getHealthPoints());
