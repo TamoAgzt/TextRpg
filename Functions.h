@@ -141,8 +141,7 @@ void BattlePlayerTurn(){
 }
 
 void BattleEnemyTurn() {
-    std::cout << "Enemy's turn..." << std::endl;
-    // Decide who starts
+    std::cout << "Enemy's turn..." << std::endl; 
     D(1);
     if (RandomNumber == 1) {
         std::cout << "ATTACK"; 
@@ -162,10 +161,12 @@ void BattleEnemyTurn() {
 void CheckBattleState(){
     // Check if anyone died
     if (ObjPlayer.getCurrentHealthPoints() <= 0) {
+        ObjPlayer.setCurrentHealthPoints(0);
         std::cout << "You were killed!" << std::endl;
 
         system("pause");
     } else if (ObjNPC_Bandit01.getCurrentHealthPoints() <= 0) {
+        ObjNPC_Bandit01.setCurrentHealthPoints(0);
         std::cout << "You killed your opponent!" << std::endl;
         ObjPlayer.setLevelUp();
         ActionOptions();
@@ -231,7 +232,7 @@ void ActionOptions() {
         else if (ActionInput == BaseActions[2]) {
             // Decide who starts
             // For now, player will always start with D(1), change to D(2) later
-            D(1);
+            D(2);
 
             if (RandomNumber == 1) {
                 isPlayerTurnInBattle = true;
